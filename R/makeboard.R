@@ -48,6 +48,7 @@ styleField <- function(value, width = "100%", height = "16px") {
 #' @author Giuseppe D'Agostino
 #'
 #' @importFrom reactable reactable colDef reactableTheme
+#' @export
 
 renderBoard <- function(data) {
   reactable(
@@ -68,7 +69,8 @@ renderBoard <- function(data) {
         "&[aria-sort='ascending'], &[aria-sort='descending']" = list(background = "hsl(0, 0%, 96%)"),
         borderColor = "#555"
       )),
-    style = list(fontFamily = "Work Sans, sans-serif", fontSize = "0.875rem")
+    style = list(fontFamily = "Work Sans, sans-serif", fontSize = "0.875rem"),
+    defaultPageSize = 20
   )
 }
 
