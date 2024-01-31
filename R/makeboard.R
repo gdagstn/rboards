@@ -153,3 +153,47 @@ removeEntry <- function(board, index = NULL, project = NULL,
   keep = setdiff(seq_len(nrow(board)), discard[discard > 0 & !is.null(discard)])
   board[keep,]
 }
+
+#' Update entry on a board
+#' Updates one or more entries from a board
+#'
+#' @param board an existing board.
+#' @param index a row index, or vector of row indices. Default is NULL.
+#' @param new_project a new project name. Default is NULL.
+#' @param new_priority a new priority or vector of priorities. Default is NULL.
+#' @param new_status a new status or vector of statuses. Default is NULL.
+#' @param assignee a new assignee or vector of assignees. Default is NULL.
+#'
+#' @returns an updated board
+#'
+#' @details The function takes vectors of indices and/or any matching field in
+#'     the board, and updates the matching rows regarding the project, the status
+#'     and/or the priority.
+#'
+#' @author Giuseppe D'Agostino
+#'
+#' @importFrom methods is
+#' @export
+
+updateEntry <- function(board, index = NULL, new_project = NULL,
+                        new_priority = NULL, new_status = NULL,
+                        new_assignee = NULL,
+                        nj = new_project, ns = new_status,
+                        np = new_priority, na = new_assignee) {
+
+  if(!index %in% seq_len(nrow(board))) stop("Index must be within the board")
+
+  if(!is.null(new_project)) board[index, "Project"] = new_project
+
+  if(!is.null(new_priority)) {
+    match.arg(new_priority, choices = c("High", "Medium", "Low"), several.ok = TRUE)
+    board[index, "Priority"] = new_priority
+  }
+  if(!is.null(new_status)) {
+    match.arg(new_status, choices = c("To do", "Doing", "Done"), several.ok = TRUE)
+    board[index, "Status"] = new_status
+  }
+  if(!is.null(new_assignee)) board[index, "Assignee"] = new_assignee
+
+  board
+}

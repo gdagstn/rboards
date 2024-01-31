@@ -3,6 +3,7 @@
 export(addEntry)
 export(removeEntry)
 export(renderBoard)
+export(updateEntry)
 importFrom(htmltools,div)
 importFrom(methods,is)
 importFrom(reactable,colDef)
